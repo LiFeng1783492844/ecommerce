@@ -1,0 +1,58 @@
+body{
+    width: 600px;
+    height: 540px;
+    margin: 0px;
+}
+#productArea{
+    width: 600px;
+    height: 510px;
+}
+
+.product{
+    width: 140px;
+    height: 160px;
+    float: left;
+    text-align: center;
+    padding: 5px;
+}
+.product .title{
+    height: 20px;
+    line-height: 20px;
+}
+.product .image{
+    height: 100px;
+    width: 140px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.product .price{
+    line-height: 20px;
+}
+.product .button{
+    height: 20px;
+}
+.product .button input{
+    margin: 0 auto;
+    height: 20px;
+    position: relative;
+    bottom: 1px;
+}
+
+.fenye{
+    width: 600px;
+    height: 30px;
+    text-align: center;
+}
+.fenye input{
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+.fenye #before{
+    float: left;
+}
+.fenye #after{
+    float: right;
+}
+

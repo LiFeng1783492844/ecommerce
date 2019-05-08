@@ -1,0 +1,100 @@
+.container{
+    width: 800px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid black;
+}
+.top{
+    background-color: deepskyblue;
+}
+.border{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.title .name1{
+    width: 40%;
+    float: left;
+}
+.title .price1{
+    width: 20%;
+    float: left;
+}
+.title .count1{
+    width: 20%;
+    float: left;
+}
+.title .confirm1{
+    width: 20%;
+    float: left;
+}
+.title .date1{
+    width: 20%;
+    float: left;
+}
+
+.content-basket{
+    width: 800px;
+    height: 200px;
+    position: relative;
+    overflow-y: auto;
+}
+.product{
+    height: 40px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.product .name{
+    line-height: 40px;
+    width: 40%;
+    float: left;
+}
+.product .price{
+    line-height: 40px;
+    width: 20%;
+    float: left;
+}
+.product .content-checkout{
+    line-height: 40px;
+    width: 20%;
+    float: left;
+}
+.product .date{
+    line-height: 40px;
+    width: 20%;
+    float: left;
+}
+.product .count-basket{
+    width: 20%;
+    float: left;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+.product .count-checkout{
+    width: 20%;
+    float: left;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+.content-basket .product .confirm{
+    width: 20%;
+    float: left;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.content-checkout{
+    width: 800px;
+    height: 200px;
+    position: relative;
+    overflow-y: auto;
+}
+.total{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: deepskyblue;
+    text-align: center;
+}

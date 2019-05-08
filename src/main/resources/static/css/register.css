@@ -1,0 +1,31 @@
+body{
+    height: 100%;
+}
+.container{
+    margin: 0 auto;
+    width: 300px;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+    border: 1px solid black;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+}
+.top{
+    background-color: deepskyblue;
+    font-size: 20px;
+    font-weight: bold;
+}
+.content{
+    position: relative;
+    /*line-height: 25px;*/
+}
+.content span{
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+}
+.content input{
+    width: 150px;
+}
