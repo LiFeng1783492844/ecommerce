@@ -1,0 +1,39 @@
+.container{
+    width: 600px;
+    height: 600px;
+    background-color: deepskyblue;
+    position: relative;
+}
+.main{
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.title{
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+}
+.notice{
+    width: 400px;
+    height: 200px;
+}
+.content{
+    width: 400px;
+    height: 200px;
+    overflow-y: auto;
+}
+.btn{
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}

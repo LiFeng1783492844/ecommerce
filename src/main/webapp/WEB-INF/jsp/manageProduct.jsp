@@ -1,38 +1,35 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2019/5/3
-  Time: 11:56
+  Date: 2019/5/18
+  Time: 20:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>商品列表</title>
-    <link type="text/css" rel="stylesheet" href="/css/productList.css">
+    <title>商品管理</title>
+    <link type="text/css" rel="stylesheet" href="/css/manageProduct.css">
 
     <script src="/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<div id="productArea">
-    <c:forEach var="hw" items="${initial}">
-        <div class="product" productId="${hw.id}">
-            <div class="title">${hw.name}</div>
-            <div class="image" style="background-image: url('${hw.pic}')"></div>
-            <div class="price">会员价：${hw.price}元</div>
-            <div class="button">
-                <input type="button" class="btnDetails" value="详情">
-                <input type="button" class="btnOrder" value="订购">
-            </div>
-        </div>
-    </c:forEach>
+<div class="content">
+    <div class="header">
+        <div class="name">商品名称</div>
+        <div class="price">价格</div>
+        <div class="count">数量</div>
+        <div class="date">日期</div>
+        <div class="operate">操作</div>
+    </div>
+    <div class="main">
+    </div>
+    <div class="fenye">
+        <input type="button" value="上一页" id="before">
+        <input type="button" value="下一页" id="after">
+    </div>
 </div>
-<div class="fenye">
-    <input type="button" value="上一页" id="before">
-    <input type="button" value="下一页" id="after">
-</div>
-
 <script>
     $(function () {
         var pagenum=1;//页号，第几页
@@ -82,28 +79,27 @@
                 pagenum=1;
             }
             //移除productArea区域中的商品div
-            $("#productArea .product").remove();
+            $(".main .product").remove();
             //加载新的商品div
             $.ajax({
                 type: "POST",
-                url: "/changeProductList",
+                url: "/bgChangeProductList",
                 data:{
                     "pagenum":pagenum
                 },
                 success: function(data){
                     for(var i=0;i<data.productList.length;i++ ){
                         //创建div
-                        var html='<div class="product" productId="'+data.productList[i].id+'">'
-                                    +'<div class="title">'+data.productList[i].name+'</div>'
-                                    +"<div class=\"image\" style=\"background-image: url('"+data.productList[i].pic+"')\"></div>"
-                                    +'<div class="price">会员价：'+data.productList[i].price+'元</div>'
-                                    +'<div class="button">'
-                                        +'<input type="button" class="btnDetails" value="详情">'
-                                        +'<input type="button" class="btnOrder" value="订购">'
-                                    +'</div>'
-                                 +'</div>';
+                        var html='<div class="product" id="'+data.productList[i].id+'">'
+                                    +'<div><input type="text" class="name" value="'+data.productList[i].name+'"></div>'
+                                    +'<div><input type="text" class="price" value="'+data.productList[i].price+'"></div>'
+                                    +'<div><input type="text" class="count" value="'+data.productList[i].count+'"></div>'
+                                    +'<div><input type="text" class="date" value="'+data.productList[i].date+'"></div>'
+                                    +'<div class="delete">删除</div>'
+                                    +'<div class="modify">修改</div>'
+                                +'</div>';
 
-                        $("#productArea").append(html);
+                        $(".main").append(html);
                     }
                 },
                 error:function () {
@@ -111,28 +107,27 @@
             });
         }
 
-        //详情键
-//        $(document).on('click','a[data-reveal-id]',function () {
-        $(document).on('click','.btnDetails',function () {
-//        $(".btnDetails").on('click',function () {
+        changeDisabled(pagenum);//改变翻页键的可用性
+        loadProduct(pagenum); //重新加载这一页的照片
+        //删除键
+        $(document).on('click','.delete',function () {
             //得到商品的id
-            var productId = $(this).parent().parent().attr("productId");
+            var productId = $(this).parent().attr("id");
             $.ajax({
                 type:"post",
-                url:"/details",
+                url:"/manageProduct/delete",
                 dataType:"json",
                 data:{
                     "productId":productId
                 },
                 success:function (result) {
-                    //给父页面的details变量赋值
-                    parent.details.name = result.details.name;
-                    parent.details.price = result.details.price;
-                    parent.details.count = result.details.count;
-                    parent.details.date = result.details.date;
-                    parent.details.info = result.details.info;
-                    //调用父页面的displayDetails()函数，来展示商品详情
-                    parent.displayDetails();
+                    console.log(result.msg);
+                    maxPageNum=result.maxPageNum;
+                    if(pagenum>result.maxPageNum){
+                        pagenum--;
+                    }
+                    changeDisabled(pagenum);//改变翻页键的可用性
+                    loadProduct(pagenum); //重新加载这一页的照片
                 },
                 error:function () {
                     alert("ajax错误！");
@@ -140,35 +135,37 @@
             })
         });
 
-        //订购键
-        $(document).on('click','.btnOrder',function () {
-            //得到商品的id
-            var productId = $(this).parent().parent().attr("productId");
+        //修改
+        $(document).on('click','.modify',function () {
+            //得到商品的信息
+            var productId = $(this).parent().attr("id");
+            var name = $(this).parent().find('.name').val();
+            var price = $(this).parent().find('.price').val();
+            var count = $(this).parent().find('.count').val();
+            var date = $(this).parent().find('.date').val();
             $.ajax({
                 type:"post",
-                url:"/order",
+                url:"/manageProduct/modify",
                 dataType:"json",
                 data:{
-                    "productId":productId
+                    "id":productId,
+                    "name":name,
+                    "price":price,
+                    "count":count,
+                    "date":date
                 },
                 success:function (result) {
-                    if(result.isLogin){//登录了
-                        if(result.isOrder){//订购成功
-                            console.log("订购成功！");
-                            alert("订购成功！")
-                        }else {
-                            console.log("订购失败！");
-                        }
-                    }else {
-                        alert("您还没有登录！");
-                    }
+                    console.log(result.msg);
+                    changeDisabled(pagenum);//改变翻页键的可用性
+                    loadProduct(pagenum); //重新加载这一页的照片
                 },
                 error:function () {
                     alert("ajax错误！");
                 }
             })
-        })
-        
+        });
+
+
     })
 </script>
 </body>

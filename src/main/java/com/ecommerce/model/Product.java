@@ -2,8 +2,6 @@ package com.ecommerce.model;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * Created by lenovo on 2019/5/1.
  */
@@ -15,5 +13,5 @@ public class Product {
     private String info;	//商品信息
     private String pic;		//商品图片
     private int count;		//商品数量
-    private Date date;		//商品日期
+    private String date;		//商品日期
 }

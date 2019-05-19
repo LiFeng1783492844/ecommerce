@@ -15,29 +15,22 @@ public interface ProductMapper {
     int getCount();
 
     //从index条数据开始，得到商品列表
-    @Select("select * from product limit #{index},#{maxnum}")
-    @Results({
-            @Result(column = "hw_id",property = "id"),
-            @Result(column = "hw_name",property = "name"),
-            @Result(column = "hw_price",property = "price"),
-            @Result(column = "hw_info",property = "info"),
-            @Result(column = "hw_pic",property = "pic"),
-            @Result(column = "hw_count",property = "count"),
-            @Result(column = "hw_date",property = "date")
-    })
+    @Select("select hw_id as id,hw_name as name,hw_price as price,hw_info as info,hw_pic as pic,hw_count as count,date_format(hw_date,'%Y-%m-%d') as date from product limit #{index},#{maxnum}")
     List<Product> getProductList(@Param("index") int index, @Param("maxnum") int maxnum);
 
     ////根据商品id查找商品
-    @Select("select * from product where hw_id = #{id}")
-    @Results({
-            @Result(column = "hw_id",property = "id"),
-            @Result(column = "hw_name",property = "name"),
-            @Result(column = "hw_price",property = "price"),
-            @Result(column = "hw_info",property = "info"),
-            @Result(column = "hw_pic",property = "pic"),
-            @Result(column = "hw_count",property = "count"),
-            @Result(column = "hw_date",property = "date")
-    })
+    @Select("select  hw_id as id,hw_name as name,hw_price as price,hw_info as info,hw_pic as price,hw_count as count,date_format(hw_date,'%Y-%m-%d') as date from product where hw_id = #{id}")
     Product getProductById(@Param("id") int id);
 
+    @Delete("delete from product where hw_id = #{productId}")
+    int delete(int productId);
+
+    @Update("update product set hw_name = #{product.name},hw_price = #{product.price},hw_count = #{product.count}," +
+            "hw_date = #{product.date} where hw_id = #{product.id}")
+    int modify(@Param("product")Product product);
+
+    @Insert("insert into product (hw_name,hw_price,hw_info,hw_pic,hw_count,hw_date) " +
+            "values(#{product.name},#{product.price},#{product.info},#{product.pic},#{product.count},#{product.date})")
+    @Options(useGeneratedKeys=true,keyProperty="id") //如果插入的表以自增列为主键，则允许 JDBC 支持自动生成主键，并可将自动生成的主键返回
+    int add(@Param("product")Product product);
 }

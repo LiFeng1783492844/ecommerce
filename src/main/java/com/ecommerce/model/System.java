@@ -16,4 +16,5 @@ public class System {
     private String sitename;//网站名称
     private String fax;		//传真
     private String code;	//邮编
+    private String notice;  //公告
 }

@@ -1,0 +1,30 @@
+.main{
+    margin: 0 auto;
+    width: 806px;
+}
+.content{
+    width: 200px;
+    height: 600px;
+    float: left;
+}
+.title{
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+    width: 199px;
+    background-color: deepskyblue;
+    border: 1px solid deepskyblue;
+    line-height: 50px;
+}
+.option{
+    text-align: center;
+    width: 199px;
+    height: 30px;
+    line-height: 30px;
+}
+.option:hover{
+    color:deepskyblue;
+}
+iframe{
+    margin-left: 4px;
+}

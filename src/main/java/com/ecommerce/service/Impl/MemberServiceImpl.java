@@ -6,6 +6,7 @@ import com.ecommerce.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,8 @@ public class MemberServiceImpl implements MemberService {
         }
         //用户未注册
         result.put("isExist",false);
-        member.setRegtime(new Date());  //设置注册时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        member.setRegtime(sdf.format(new Date()));  //设置注册时间
         Boolean insertResult = memberMapper.setMember(member);
         if(insertResult){
             result.put("msg","注册成功！");
@@ -67,5 +69,40 @@ public class MemberServiceImpl implements MemberService {
         }
         result.put("flag",false);
         return result;
+    }
+
+    @Override
+    public int getMaxPageNum(int maxnum) throws Exception {
+        int count = memberMapper.getCount();   //商品总数
+        double result = ((double)count)/((double)maxnum);
+        int maxPageNum = (int)Math.ceil(result);//向上取整
+        if(maxPageNum==0){//如果商品总记录数为0，则最大分页数为1（至少要显示1页，哪怕是空白）
+            maxPageNum=1;
+        }
+        return maxPageNum;
+    }
+
+    @Override
+    public List<Member> getMemberList(int pageNum, int maxnum) throws Exception {
+        int index = (pageNum-1)*maxnum; //开始查找的位置
+        return memberMapper.getMemberList(index,maxnum);
+    }
+
+    @Override
+    public Boolean delete(int memberId) throws Exception {
+        int result  = memberMapper.delete(memberId);
+        if (result>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean modify(Member member) throws Exception {
+        int result  = memberMapper.modify(member);
+        if (result>0){
+            return true;
+        }
+        return false;
     }
 }

@@ -20,18 +20,9 @@ public interface MemberMapper {
     Boolean setMember(@Param("member") Member member);
 
     //验证用户登录
-    @Select("select * from member where user_account=#{member.account}")
-    @Results({
-            @Result(column = "user_id",property = "id"),
-            @Result(column = "user_account",property = "account"),
-            @Result(column = "user_pass",property = "pass"),
-            @Result(column = "user_adds",property = "adds"),
-            @Result(column = "user_mail",property = "mail"),
-            @Result(column = "user_tel",property = "tel"),
-            @Result(column = "user_regtime",property = "regtime"),
-            @Result(column = "user_postcode",property = "postcode"),
-            @Result(column = "user_name",property = "name")
-    })
+    @Select("select  user_id as id,user_account as account,user_pass as pass,user_adds as adds,user_mail as mail," +
+            "user_tel as tel,date_format(user_regtime,'%Y-%m-%d') as regtime,user_postcode as postcode," +
+            "user_name as name  from member where user_account=#{member.account}")
     Member referMember(@Param("member") Member member);
 
     //更新用户信息
@@ -39,5 +30,20 @@ public interface MemberMapper {
             +"user_tel = #{member.tel},user_postcode = #{member.postcode},user_name = #{member.name} "
             +"where user_account = #{member.account}")
     int updateMember(@Param("member") Member member);
+
+
+    //得到用户总数
+    @Select("select count(user_id) from member")
+    int getCount();
+    //从index条数据开始，得到用户列表
+    @Select("select user_id as id,user_account as account,user_pass as pass,user_adds as adds,user_mail as mail," +
+            "user_tel as tel,date_format(user_regtime,'%Y-%m-%d') as regtime,user_postcode as postcode," +
+            "user_name as name from member limit #{index},#{maxnum}")
+    List<Member> getMemberList(@Param("index") int index, @Param("maxnum") int maxnum);
+
+    @Delete("delete from member where user_id = #{memberId}")
+    int delete(int memberId);
+    @Update("update member set user_pass = #{member.pass} where user_id = #{member.id}")
+    int modify(@Param("member")Member member);
 
 }

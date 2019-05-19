@@ -15,4 +15,9 @@ public interface ProductService {
 
     Product getProductById(int id)throws Exception;
 
+    Boolean delete(int productId)throws Exception;
+
+    Boolean modify(Product product)throws Exception;
+
+    Boolean add(Product product)throws Exception;
 }

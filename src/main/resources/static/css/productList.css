@@ -39,6 +39,7 @@ body{
     bottom: 1px;
 }
 
+/*分页（翻页）按钮*/
 .fenye{
     width: 600px;
     height: 30px;
@@ -54,5 +55,17 @@ body{
 }
 .fenye #after{
     float: right;
+}
+
+/*详情*/
+.details{
+    display: none;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    z-index: -999;
+    margin: 0 auto;
+    top: 50%;
+    margin-top: -50%;
 }
 

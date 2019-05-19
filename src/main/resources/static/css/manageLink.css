@@ -1,0 +1,65 @@
+.content{
+    width: 600px;
+    height: 600px;
+    border-top: 1px solid deepskyblue;
+    border-bottom: 1px solid deepskyblue;
+}
+.content .header{
+    width: 600px;
+    height: 30px;
+    border-bottom: 1px solid deepskyblue;
+    text-align: center;
+}
+.header .name,.url,.operate{
+    width: 200px;
+    line-height: 30px;
+    float: left;
+}
+.main{
+    width: 600px;
+    height: 510px;
+    text-align: center;
+    border-bottom: 1px solid deepskyblue;
+}
+.main .name,.url{
+    width: 200px;
+    line-height: 26px;
+    float: left;
+    text-align: center;
+}
+.main .delete,.modify{
+    width: 100px;
+    line-height: 30px;
+    float: left;
+}
+.main .delete:hover,.modify:hover{
+    color: deepskyblue;
+}
+
+.fenye{
+    width: 600px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+.addArea{
+    width: 600px;
+    height: 30px;
+    border-top: 1px solid deepskyblue;
+}
+.addArea .name,.addArea .url{
+    width: 200px;
+    line-height: 24px;
+    float: left;
+    text-align: center;
+}
+.addArea .add{
+    width: 200px;
+    line-height: 29px;
+    float: left;
+    text-align: center;
+}
+.add:hover{
+    color: deepskyblue;
+}
+

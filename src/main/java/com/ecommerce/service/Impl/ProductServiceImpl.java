@@ -38,4 +38,31 @@ public class ProductServiceImpl implements ProductService{
 //        Product t =   productMapper.getProductById(id);
         return productMapper.getProductById(id);
     }
+
+    @Override
+    public Boolean delete(int productId) throws Exception {
+        int result  = productMapper.delete(productId);
+        if (result>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean modify(Product product) throws Exception {
+        int result  = productMapper.modify(product);
+        if (result>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean add(Product product) throws Exception {
+        int result = productMapper.add(product);
+        if (result>0){
+            return true;
+        }
+        return false;
+    }
 }

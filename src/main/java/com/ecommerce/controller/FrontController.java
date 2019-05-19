@@ -4,9 +4,7 @@ import com.ecommerce.ConfigClass;
 import com.ecommerce.model.Basket;
 import com.ecommerce.model.Member;
 import com.ecommerce.model.Product;
-import com.ecommerce.service.BasketService;
-import com.ecommerce.service.MemberService;
-import com.ecommerce.service.ProductService;
+import com.ecommerce.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +25,6 @@ import java.util.Map;
 @Controller
 public class FrontController {
     private Member member;
-    private Product product;
-    private Basket basket;
     private int maxPageNum; //最大分页数
     @Autowired
     MemberService memberService;
@@ -36,6 +32,10 @@ public class FrontController {
     BasketService basketService;
     @Autowired
     ProductService productService;
+    @Autowired
+    SystemService systemService;
+    @Autowired
+    AdService adService;
 
     //注册
     @RequestMapping(value = "/register")
@@ -211,8 +211,16 @@ public class FrontController {
     }
 
     @RequestMapping(value = "/index")
-    public String index()throws Exception{
+    public String index(Model model)throws Exception{
+        model.addAttribute("notice",systemService.getNotice());
+        model.addAttribute("linkList", adService.getLinkList());
         return "/index";
+    }
+
+    //后台
+    @RequestMapping(value = "/background")
+    public String background()throws Exception{
+        return "redirect:/background/login";
     }
 
 
