@@ -112,9 +112,7 @@
         }
 
         //详情键
-//        $(document).on('click','a[data-reveal-id]',function () {
         $(document).on('click','.btnDetails',function () {
-//        $(".btnDetails").on('click',function () {
             //得到商品的id
             var productId = $(this).parent().parent().attr("productId");
             $.ajax({

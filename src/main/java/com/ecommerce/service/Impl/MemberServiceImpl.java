@@ -48,6 +48,11 @@ public class MemberServiceImpl implements MemberService {
         Map<String,Object> result = new HashMap<>();
 //        List<Member> referList = memberMapper.referMember(member);
         Member member1 = memberMapper.referMember(member);
+        if(member1==null){
+            result.put("msg","用户未注册！");
+            result.put("flag",false);
+            return result;
+        }
         if(member.getPass().equals(member1.getPass())){
             result.put("msg","登录成功！");
             result.put("flag",true);

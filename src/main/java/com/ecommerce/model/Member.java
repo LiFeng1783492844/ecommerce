@@ -1,11 +1,11 @@
 package com.ecommerce.model;
 
-import lombok.Data;
+import lombok.Data; //用来自动生成get()和set()方法
 
 /**
  * Created by lenovo on 2019/5/1.
  */
-@Data
+@Data   //使用lombok需要加上此注解
 public class Member {
     private int id;	//会员编号
     private String account;	//会员账号
